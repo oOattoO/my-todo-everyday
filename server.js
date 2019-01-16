@@ -26,6 +26,16 @@ server.route({
     }
 });
 
+server.route({
+    method: 'GET',
+    path: '/task/list',
+    handler: (request, reply) => {
+        return server.methods.task
+            .listTodo(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
 

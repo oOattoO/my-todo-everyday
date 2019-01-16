@@ -18,11 +18,23 @@ exports.plugin = {
         });
 
         server.method({
-            name: "datasource.product.Query",
-            method: () => { },
+            name: "datasource.task.Query",
+            method: QueryTodo
         });
     }
 };
 const InsertTodo = (db, body) => {
     return db.collection('woiacth').insert(body);
+}
+
+const QueryTodo = (db) => {
+    console.log('เข้ามาทำใน mongo')
+    return new Promise((resolve, reject) => {
+        db.collection('woiacth').find({})
+        .toArray((err, result) => {
+            resolve(result);
+        });
+    });
+    
+    
 }

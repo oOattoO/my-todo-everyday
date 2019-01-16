@@ -19,7 +19,7 @@ exports.plugin = {
 
         server.method({
             name: "task.listTodo",
-            method: () => { }
+            method: listTodo
         });
 
     }
@@ -40,4 +40,16 @@ const addTodo = (server, request) => {
                 resovle(response);
             });
     });
+}
+
+const listTodo = (server, request) => {
+    return new Promise((resovle, reject) => {
+        console.log('เข้ามาทำมั้ย')
+        server.methods.datasource.task.Query(request.mongo.db)
+            .then((response) => {
+                console.log(response);
+                resovle(response);
+            });
+    });
+
 }
