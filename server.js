@@ -47,6 +47,17 @@ server.route({
     }
 });
 
+// delete task route
+server.route({
+    method: 'DELETE',
+    path: '/task/delete/{id}',
+    handler: function (request, reply) {
+        return server.methods.task
+            .deleteTodo(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
 

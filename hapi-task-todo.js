@@ -14,7 +14,7 @@ exports.plugin = {
         });
         server.method({
             name: "task.deleteTodo",
-            method: () => { }
+            method: deleteTodo
         });
 
         server.method({
@@ -61,11 +61,21 @@ const editTodo = (server, request) => {
         time: request.payload.time
     }
     return new Promise((resovle, reject) => {
-       const ObjectID = request.mongo.ObjectID;
+        const ObjectID = request.mongo.ObjectID;
         server.methods.datasource.task.Update(request.mongo.db, new ObjectID(request.params.id), body)
-        .then((response) => {
-            resovle(response);
-        })
+            .then((response) => {
+                resovle(response);
+            })
     })
 
+}
+
+const deleteTodo = (server, request) => {
+    return new Promise((resovle, reject) => {
+        const ObjectID = request.mongo.ObjectID; 
+        server.methods.datasource.task.Delete(request.mongo.db, new ObjectID(request.params.id))
+            .then((response) => {
+                resovle(response);
+            });
+    });
 }

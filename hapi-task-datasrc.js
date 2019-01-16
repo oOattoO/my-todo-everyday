@@ -13,8 +13,8 @@ exports.plugin = {
         });
 
         server.method({
-            name: "datasource.product.Remove",
-            method: () => { },
+            name: "datasource.task.Delete",
+            method: DeleteTodo,
         });
 
         server.method({
@@ -39,4 +39,8 @@ const QueryTodo = (db) => {
 
 const UpdateTodo = (db, id, body) => {
     return db.collection('woiacth').update({ _id: id }, body);
+}
+
+const DeleteTodo = (db, id) => {
+    return db.collection('woiacth').deleteOne({ _id: id });
 }
