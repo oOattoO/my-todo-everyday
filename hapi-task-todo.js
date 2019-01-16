@@ -10,7 +10,7 @@ exports.plugin = {
 
         server.method({
             name: "task.editTodo",
-            method: () => { }
+            method: editTodo
         });
         server.method({
             name: "task.deleteTodo",
@@ -51,5 +51,21 @@ const listTodo = (server, request) => {
                 resovle(response);
             });
     });
+}
+
+const editTodo = (server, request) => {
+    var body = {
+        head: request.payload.head,
+        description: request.payload.description,
+        type: request.payload.type,
+        time: request.payload.time
+    }
+    return new Promise((resovle, reject) => {
+       const ObjectID = request.mongo.ObjectID;
+        server.methods.datasource.task.Update(request.mongo.db, new ObjectID(request.params.id), body)
+        .then((response) => {
+            resovle(response);
+        })
+    })
 
 }

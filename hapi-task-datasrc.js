@@ -8,8 +8,8 @@ exports.plugin = {
         });
 
         server.method({
-            name: "datasource.product.Update",
-            method: () => { },
+            name: "datasource.task.Update",
+            method: UpdateTodo,
         });
 
         server.method({
@@ -35,6 +35,8 @@ const QueryTodo = (db) => {
             resolve(result);
         });
     });
-    
-    
+}
+
+const UpdateTodo = (db, id, body) => {
+    return db.collection('woiacth').update({ _id: id }, body);
 }

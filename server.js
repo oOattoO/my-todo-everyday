@@ -36,6 +36,17 @@ server.route({
     }
 });
 
+// update task route
+server.route({
+    method: 'PUT',
+    path: '/task/{id}',
+    handler: function (request, reply) {
+        return server.methods.task
+            .editTodo(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
 
