@@ -80,7 +80,7 @@ const editTodo = (server, request) => {
         const ObjectID = request.mongo.ObjectID;
         server.methods.datasource.task.Update(request.mongo.db, new ObjectID(request.params.id), body)
             .then((response) => {
-                if (response.result.ok == 1) {
+                if (response.result.n == 1) {
                     resovle({
                         status: 200,
                         message: "Update success"
