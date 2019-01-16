@@ -36,19 +36,33 @@ const addTodo = (server, request) => {
     return new Promise((resovle, reject) => {
         server.methods.datasource.task.add(request.mongo.db, body)
             .then((response) => {
-                console.log(response);
-                resovle(response);
+                if (response.result.ok == 1) {
+                    resovle({
+                        status: 200,
+                        message: "Add success"
+                    });
+                } else {
+                    resovle({
+                        status: 500,
+                        message: "Add failed"
+                    })
+                }
+            }).catch((err) => {
+                reject(err);
             });
     });
 }
 
 const listTodo = (server, request) => {
     return new Promise((resovle, reject) => {
-        console.log('เข้ามาทำมั้ย')
         server.methods.datasource.task.Query(request.mongo.db)
             .then((response) => {
-                console.log(response);
                 resovle(response);
+            }).catch((err) => {
+                reject({
+                    status: 500,
+                    message: "failed"
+                });
             });
     });
 }
@@ -64,18 +78,42 @@ const editTodo = (server, request) => {
         const ObjectID = request.mongo.ObjectID;
         server.methods.datasource.task.Update(request.mongo.db, new ObjectID(request.params.id), body)
             .then((response) => {
-                resovle(response);
-            })
-    })
+                if (response.result.ok == 1) {
+                    resovle({
+                        status: 200,
+                        message: "Update success"
+                    });
+                } else {
+                    resovle({
+                        status: 500,
+                        message: "Update failed"
+                    })
+                }
+            }).catch((err) => {
+                reject(err);
+            });
+    });
 
 }
 
 const deleteTodo = (server, request) => {
     return new Promise((resovle, reject) => {
-        const ObjectID = request.mongo.ObjectID; 
+        const ObjectID = request.mongo.ObjectID;
         server.methods.datasource.task.Delete(request.mongo.db, new ObjectID(request.params.id))
             .then((response) => {
-                resovle(response);
+                if (response.result.n == 1) {
+                    resovle({
+                        status: 200,
+                        message: "Delete success"
+                    }, response);
+                } else {
+                    resovle({
+                        status: 500,
+                        message: "Delete failed"
+                    });
+                }
+            }).catch((err) => {
+                reject(err);
             });
     });
 }
