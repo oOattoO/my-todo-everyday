@@ -30,7 +30,8 @@ const addTodo = (server, request) => {
         head: request.payload.head,
         description: request.payload.description,
         type: request.payload.type,
-        time: request.payload.time
+        time: request.payload.time,
+        status_card: request.payload.status
     }
 
     return new Promise((resovle, reject) => {
@@ -72,7 +73,8 @@ const editTodo = (server, request) => {
         head: request.payload.head,
         description: request.payload.description,
         type: request.payload.type,
-        time: request.payload.time
+        time: request.payload.time,
+        status_card: request.payload.status
     }
     return new Promise((resovle, reject) => {
         const ObjectID = request.mongo.ObjectID;
