@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Badger1041425/my-todo-everyday#readme",
   "dependencies": {
-    "hapi": "^17.8.1",
+    "hapi": "^17.8.5",
     "hapi-mongodb": "^8.0.0"
   }
 }
